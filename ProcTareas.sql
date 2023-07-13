@@ -1,4 +1,7 @@
 create database GestionTareas
+
+GO
+
 -- Creando tabla
 CREATE TABLE Tareas(
     CodigoTarea INT,
@@ -9,8 +12,10 @@ CREATE TABLE Tareas(
     Tarea TEXT
 )
 
+GO
+
 -- ---> PROCEDIMIENTO PARA REGISTRAR LA TAREA <---
-ALTER PROC SP_RegistrarTarea(
+CREATE PROC SP_RegistrarTarea(
 @Codigo int, 
 @Materia varchar(100),
 @Nombre varchar(100),
@@ -27,17 +32,13 @@ set @Mensaje= ''
 		set @Mensaje= 'Tarea Registrada'
 	END
 	ELSE
-		set @Mensaje= 'Este código registrado en otra tarea, ingresa otro que sea valido'
+		set @Mensaje= 'Este cÃ³digo registrado en otra tarea, ingresa otro que sea valido'
 END
 
--- PRUEBA DE PROC
-declare @mensaje varchar(500)
-EXEC SP_RegistrarTarea 111,'Mate','Hacer proyecto',1,'adasdasdasdasd',@mensaje output
-
-select * from Tareas
+GO
 
 -- ---> PROCEDIMIENTO PARA MODIFICAR LA TAREA <---
-alter PROC SP_ModificarTarea(
+CREATE PROC SP_ModificarTarea(
 @CodigoAnterior int,
 @CodigoNuevo int, 
 @Materia varchar(100),
@@ -60,14 +61,10 @@ set @Mensaje= ''
 		set @Mensaje= 'Tarea modificada correctamente.'
 	END
 	ELSE
-		set @Mensaje= 'Este código registrado en otra tarea, ingresa otro que sea valido'
+		set @Mensaje= 'Este cÃ³digo registrado en otra tarea, ingresa otro que sea valido'
 END
 
-declare @mensaje varchar(500)
-declare @respuesta bit
-EXEC SP_ModificarTarea 234,234,'Locochon','reasd',1,'nose',@respuesta output,@mensaje output
-
-select * from Tareas
+GO
 
 -- ---> PROCEDIMIENTO PARA MODIFICAR LA TAREA <---
 CREATE PROC SP_EliminarTarea(
@@ -78,6 +75,3 @@ BEGIN
 	DELETE FROM Tareas WHERE CodigoTarea = @Codigo
 	SET @Mensaje = 'Tarea eliminada correctamente.'
 END
--- PRUEBA DE PROC
-declare @mensaje varchar(500)
-EXEC SP_EliminarTarea 6756,@mensaje output
