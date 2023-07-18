@@ -2,6 +2,10 @@ create database GestionTareas
 
 GO
 
+use GestionTareas
+
+GO
+
 -- Creando tabla
 CREATE TABLE Tareas(
     CodigoTarea INT,
